@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>Venice Capital — Coming Soon</title>
+  <meta name="description" content="Venice Capital — Coming Soon." />
+
+  <style>
+    :root{
+      --ink: rgba(238, 251, 255, .92);
+      --muted: rgba(238, 251, 255, .72);
+
+      --ocean0:#030a10;
+      --ocean1:#041827;
+      --ocean2:#072b42;
+      --ocean3:#0a3f5d;
+      --ocean4:#0fb4c9;
+
+      --glass: rgba(255,255,255,.06);
+      --glass2: rgba(255,255,255,.10);
+      --line: rgba(255,255,255,.14);
+      --shadow: 0 40px 120px rgba(0,0,0,.55);
+
+      --radius: 28px;
+      --ring: 0 0 0 1px var(--line), 0 0 0 10px rgba(15,180,201,.10);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: radial-gradient(1200px 800px at 20% 15%, rgba(15,180,201,.30), transparent 55%),
+                  radial-gradient(900px 700px at 75% 30%, rgba(120,233,255,.18), transparent 60%),
+                  radial-gradient(1100px 900px at 55% 95%, rgba(10,63,93,.55), transparent 60%),
+                  linear-gradient(180deg, var(--ocean0), var(--ocean1) 22%, var(--ocean2) 55%, var(--ocean1));
+      color:var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      overflow:hidden;
+    }
+
+    /* Subtle moving “depth” */
+    .drift{
+      position:fixed; inset:-30%;
+      background:
+        conic-gradient(from 180deg at 50% 50%,
+          rgba(15,180,201,.0),
+          rgba(15,180,201,.10),
+          rgba(120,233,255,.06),
+          rgba(15,180,201,.0),
+          rgba(10,63,93,.10),
+          rgba(15,180,201,.0));
+      filter: blur(55px);
+      opacity:.55;
+      animation: drift 22s ease-in-out infinite alternate;
+      pointer-events:none;
+      mix-blend-mode: screen;
+    }
+    @keyframes drift{
+      0%   { transform: translate3d(-2%, -1%, 0) rotate(-6deg) scale(1.03); }
+      100% { transform: translate3d( 2%,  1%, 0) rotate( 6deg) scale(1.07); }
+    }
+
+    /* Film-grain / noise */
+    .grain{
+      position:fixed; inset:-40%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      opacity:.08;
+      transform: translateZ(0);
+      animation: grain 7s steps(10) infinite;
+      pointer-events:none;
+      mix-blend-mode: overlay;
+    }
+    @keyframes grain{
+      0%   { transform: translate3d(0,0,0) }
+      20%  { transform: translate3d(-2%, 1%,0) }
+      40%  { transform: translate3d(1%,-2%,0) }
+      60%  { transform: translate3d(3%, 2%,0) }
+      80%  { transform: translate3d(-1%,-1%,0) }
+      100% { transform: translate3d(0,0,0) }
+    }
+
+    /* “Water caustics” style highlight */
+    .caustics{
+      position:fixed; inset:-15%;
+      background:
+        radial-gradient(closest-side at 22% 30%, rgba(120,233,255,.22), transparent 62%),
+        radial-gradient(closest-side at 70% 45%, rgba(15,180,201,.18), transparent 58%),
+        radial-gradient(closest-side at 55% 80%, rgba(120,233,255,.12), transparent 62%);
+      filter: blur(24px) saturate(120%);
+      opacity:.65;
+      animation: caustics 12s ease-in-out infinite alternate;
+      pointer-events:none;
+      mix-blend-mode: screen;
+    }
+    @keyframes caustics{
+      0%   { transform: translate3d(-1.5%, 1%, 0) scale(1.02); }
+      100% { transform: translate3d( 1.5%,-1%, 0) scale(1.06); }
+    }
+
+    /* Layout */
+    .wrap{
+      position:relative;
+      height:100%;
+      display:grid;
+      place-items:center;
+      padding:32px 18px;
+    }
+
+    /* Glass card */
+    .card{
+      width:min(840px, 92vw);
+      padding:56px 48px;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      position:relative;
+      overflow:hidden;
+      isolation:isolate;
+    }
+
+    /* Card top sheen */
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(900px 260px at 18% 0%, rgba(120,233,255,.18), transparent 55%),
+        radial-gradient(700px 240px at 78% 10%, rgba(15,180,201,.12), transparent 55%),
+        linear-gradient(90deg, transparent, rgba(255,255,255,.05), transparent);
+      opacity:.9;
+      z-index:-1;
+      transform: translateZ(0);
+    }
+
+    /* Animated wave-line */
+    .wave{
+      position:absolute;
+      left:-15%;
+      right:-15%;
+      bottom:-44px;
+      height:160px;
+      opacity:.55;
+      filter: blur(0px);
+      z-index:-1;
+      transform: translateZ(0);
+    }
+
+    /* Headline */
+    .brand{
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 650;
+      font-size: clamp(28px, 4.3vw, 56px);
+      line-height: 1.06;
+      margin:0 0 18px 0;
+      text-shadow: 0 10px 40px rgba(0,0,0,.45);
+    }
+
+    .soon{
+      margin:0;
+      font-weight: 520;
+      font-size: clamp(14px, 1.8vw, 18px);
+      letter-spacing: .34em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display:inline-flex;
+      align-items:center;
+      gap:12px;
+      user-select:none;
+    }
+    .dot{
+      width:10px; height:10px;
+      border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.95), rgba(15,180,201,.8));
+      box-shadow: 0 0 0 1px rgba(255,255,255,.22), 0 0 34px rgba(15,180,201,.35);
+      animation: pulse 1.9s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%,100%{ transform: scale(.95); opacity:.8; }
+      50%    { transform: scale(1.12); opacity:1; }
+    }
+
+    /* Thin horizon line */
+    .horizon{
+      margin-top:34px;
+      height:1px;
+      background: linear-gradient(90deg,
+        transparent,
+        rgba(255,255,255,.18),
+        rgba(15,180,201,.28),
+        rgba(255,255,255,.18),
+        transparent);
+      opacity:.85;
+    }
+
+    /* Micro interaction */
+    .card:hover{
+      box-shadow: 0 50px 140px rgba(0,0,0,.62);
+    }
+    .card:focus-within{
+      outline:none;
+      box-shadow: var(--shadow), var(--ring);
+    }
+
+    /* Responsive */
+    @media (max-width: 560px){
+      .card{ padding:44px 26px; }
+      .soon{ letter-spacing: .28em; }
+      .horizon{ margin-top:28px; }
+    }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .drift,.grain,.caustics,.dot{ animation:none !important; }
+      .wave path{ animation:none !important; }
+    }
+
+    /* Subtle corner accents */
+    .corner{
+      position:absolute; inset:0;
+      pointer-events:none;
+      border-radius: var(--radius);
+      background:
+        radial-gradient(140px 140px at 0% 0%, rgba(120,233,255,.18), transparent 70%),
+        radial-gradient(160px 160px at 100% 0%, rgba(15,180,201,.14), transparent 72%),
+        radial-gradient(240px 180px at 100% 100%, rgba(10,63,93,.18), transparent 70%);
+      opacity:.85;
+      mix-blend-mode: screen;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="drift"></div>
+  <div class="caustics"></div>
+  <div class="grain"></div>
+
+  <main class="wrap">
+    <section class="card" aria-label="Venice Capital coming soon">
+      <div class="corner"></div>
+
+      <h1 class="brand">Venice Capital</h1>
+      <p class="soon"><span class="dot" aria-hidden="true"></span>Coming Soon</p>
+
+      <div class="horizon" aria-hidden="true"></div>
+
+      <!-- Animated wave -->
+      <svg class="wave" viewBox="0 0 1200 220" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="rgba(120,233,255,.00)"/>
+            <stop offset=".22" stop-color="rgba(120,233,255,.20)"/>
+            <stop offset=".52" stop-color="rgba(15,180,201,.22)"/>
+            <stop offset=".78" stop-color="rgba(120,233,255,.18)"/>
+            <stop offset="1" stop-color="rgba(120,233,255,.00)"/>
+          </linearGradient>
+
+          <filter id="soft">
+            <feGaussianBlur stdDeviation="0.6" />
+          </filter>
+        </defs>
+
+        <path id="w1" d="M0,150 C160,120 320,180 480,150 C640,120 800,180 960,150 C1080,128 1140,132 1200,150 L1200,260 L0,260 Z"
+              fill="url(#g)" filter="url(#soft)" opacity=".95">
+          <animate attributeName="d" dur="8s" repeatCount="indefinite"
+            values="
+              M0,150 C160,120 320,180 480,150 C640,120 800,180 960,150 C1080,128 1140,132 1200,150 L1200,260 L0,260 Z;
+              M0,148 C140,178 340,118 500,148 C640,178 820,120 980,148 C1100,168 1160,154 1200,148 L1200,260 L0,260 Z;
+              M0,150 C160,120 320,180 480,150 C640,120 800,180 960,150 C1080,128 1140,132 1200,150 L1200,260 L0,260 Z
+            "/>
+        </path>
+
+        <path id="w2" d="M0,170 C180,145 300,195 520,170 C720,147 860,200 1030,172 C1120,158 1170,160 1200,170 L1200,260 L0,260 Z"
+              fill="rgba(255,255,255,.06)" opacity=".75">
+          <animate attributeName="d" dur="10s" repeatCount="indefinite"
+            values="
+              M0,170 C180,145 300,195 520,170 C720,147 860,200 1030,172 C1120,158 1170,160 1200,170 L1200,260 L0,260 Z;
+              M0,172 C200,202 320,140 540,172 C720,202 860,145 1040,170 C1128,164 1176,166 1200,172 L1200,260 L0,260 Z;
+              M0,170 C180,145 300,195 520,170 C720,147 860,200 1030,172 C1120,158 1170,160 1200,170 L1200,260 L0,260 Z
+            "/>
+        </path>
+      </svg>
+    </section>
+  </main>
+
+  <script>
+    // Tiny touch: gentle parallax tied to pointer, but stays classy.
+    (() => {
+      const card = document.querySelector(".card");
+      if (!card) return;
+
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReduced) return;
+
+      const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+
+      let raf = null;
+      let tx = 0, ty = 0;
+
+      function apply(){
+        raf = null;
+        card.style.transform =
+          `translate3d(${tx}px, ${ty}px, 0)`;
+      }
+
+      function onMove(e){
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - (r.left + r.width/2)) / (r.width/2);
+        const y = (e.clientY - (r.top  + r.height/2)) / (r.height/2);
+        tx = clamp(x * 8, -10, 10);
+        ty = clamp(y * 6, -8, 8);
+        if (!raf) raf = requestAnimationFrame(apply);
+      }
+
+      function onLeave(){
+        tx = 0; ty = 0;
+        if (!raf) raf = requestAnimationFrame(apply);
+      }
+
+      window.addEventListener("pointermove", onMove, {passive:true});
+      window.addEventListener("pointerleave", onLeave, {passive:true});
+    })();
+  </script>
+</body>
+</html>

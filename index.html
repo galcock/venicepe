@@ -4,72 +4,76 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="color-scheme" content="dark" />
-  <title>Venice Capital — Coming Soon</title>
-  <meta name="description" content="Venice Capital — Coming Soon." />
+  <title>Venice Capital — Coming 2026</title>
+  <meta name="description" content="Venice Capital — Coming 2026." />
+
+  <!-- Unique, premium typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg0:#02080f;
-      --bg1:#041a2b;
-      --bg2:#062d42;
-      --bg3:#0a4b63;
-      --teal:#21d4e6;
-      --ice: rgba(234, 250, 255, .92);
-      --muted: rgba(234, 250, 255, .68);
+      --deep:#02070d;
+      --mid:#041a2b;
+      --sea:#063a52;
+      --foam:#bff7ff;
+      --aqua:#22d4e6;
+      --ink: rgba(235, 252, 255, .95);
+      --muted: rgba(235, 252, 255, .72);
 
-      --card: rgba(255,255,255,.07);
-      --card2: rgba(255,255,255,.04);
+      --glass: rgba(255,255,255,.06);
+      --glass2: rgba(255,255,255,.03);
       --line: rgba(255,255,255,.14);
+      --shadow: 0 40px 140px rgba(0,0,0,.55);
 
-      --shadow: 0 30px 120px rgba(0,0,0,.55);
-      --radius: 22px;
+      --radius: 28px;
     }
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
     body{
       margin:0;
-      color:var(--ice);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       background:
-        radial-gradient(1200px 900px at 15% 15%, rgba(33,212,230,.22), transparent 55%),
-        radial-gradient(900px 700px at 75% 25%, rgba(120,233,255,.14), transparent 58%),
-        radial-gradient(1200px 900px at 60% 95%, rgba(10,75,99,.55), transparent 60%),
-        linear-gradient(180deg, var(--bg0), var(--bg1) 24%, var(--bg2) 58%, var(--bg1));
+        radial-gradient(1200px 900px at 18% 18%, rgba(34,212,230,.26), transparent 56%),
+        radial-gradient(900px 700px at 76% 25%, rgba(191,247,255,.12), transparent 58%),
+        radial-gradient(1200px 900px at 60% 95%, rgba(6,58,82,.70), transparent 62%),
+        linear-gradient(180deg, var(--deep), var(--mid) 28%, var(--sea) 62%, var(--mid));
+      color:var(--ink);
       overflow:hidden;
     }
 
-    /* subtle texture (no external assets) */
-    .noise{
-      position:fixed; inset:-35%;
-      opacity:.08;
-      pointer-events:none;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
-      mix-blend-mode: overlay;
-      transform: translateZ(0);
-    }
-
-    /* premium moving “current” */
+    /* moving “current” (luxury, not gimmick) */
     .current{
-      position:fixed; inset:-30%;
+      position:fixed; inset:-35%;
       pointer-events:none;
       background:
-        conic-gradient(from 210deg at 45% 45%,
-          rgba(33,212,230,0) 0%,
-          rgba(33,212,230,.16) 18%,
-          rgba(120,233,255,.10) 35%,
-          rgba(33,212,230,0) 52%,
-          rgba(10,75,99,.20) 72%,
-          rgba(33,212,230,0) 100%);
-      filter: blur(60px);
+        conic-gradient(from 220deg at 45% 45%,
+          rgba(34,212,230,0) 0%,
+          rgba(34,212,230,.14) 18%,
+          rgba(191,247,255,.10) 34%,
+          rgba(34,212,230,0) 52%,
+          rgba(6,58,82,.22) 74%,
+          rgba(34,212,230,0) 100%);
+      filter: blur(70px) saturate(120%);
       opacity:.55;
       mix-blend-mode: screen;
       animation: drift 18s ease-in-out infinite alternate;
       transform: translateZ(0);
     }
     @keyframes drift{
-      0%{ transform: translate3d(-2%, -1%, 0) rotate(-5deg) scale(1.02); }
-      100%{ transform: translate3d( 2%,  1%, 0) rotate( 6deg) scale(1.06); }
+      0%  { transform: translate3d(-2.2%, -1.4%, 0) rotate(-6deg) scale(1.02); }
+      100%{ transform: translate3d( 2.2%,  1.4%, 0) rotate( 6deg) scale(1.07); }
+    }
+
+    /* fine grain */
+    .grain{
+      position:fixed; inset:-40%;
+      pointer-events:none;
+      opacity:.08;
+      mix-blend-mode: overlay;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      transform: translateZ(0);
     }
 
     .wrap{
@@ -78,103 +82,107 @@
       place-items:center;
       padding:
         calc(28px + env(safe-area-inset-top))
-        calc(18px + env(safe-area-inset-right))
+        calc(22px + env(safe-area-inset-right))
         calc(28px + env(safe-area-inset-bottom))
-        calc(18px + env(safe-area-inset-left));
+        calc(22px + env(safe-area-inset-left));
     }
 
-    .card{
-      width:min(820px, 92vw);
-      padding: clamp(28px, 4.5vw, 56px);
+    /* Full-screen hero card that feels “institutional” */
+    .panel{
+      width:min(1200px, 94vw);
+      min-height: min(720px, 78svh);
       border-radius: var(--radius);
-      background: linear-gradient(180deg, var(--card), var(--card2));
+      background: linear-gradient(180deg, var(--glass), var(--glass2));
       border: 1px solid rgba(255,255,255,.12);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       position:relative;
       overflow:hidden;
+      display:grid;
+      align-content:center;
+      padding: clamp(28px, 5vw, 72px);
       isolation:isolate;
     }
 
-    /* crisp edge highlights (less “blob”) */
-    .card::before{
+    /* crisp “architectural” edge highlight */
+    .panel::before{
       content:"";
-      position:absolute; inset:0;
+      position:absolute; inset:-2px;
       background:
-        radial-gradient(700px 260px at 20% 0%, rgba(120,233,255,.14), transparent 55%),
-        radial-gradient(600px 260px at 85% 10%, rgba(33,212,230,.10), transparent 60%),
-        linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent);
-      opacity:.9;
+        radial-gradient(900px 320px at 18% 0%, rgba(191,247,255,.14), transparent 58%),
+        radial-gradient(760px 320px at 84% 10%, rgba(34,212,230,.10), transparent 60%),
+        linear-gradient(90deg, transparent, rgba(255,255,255,.05), transparent);
+      opacity:.95;
       z-index:-1;
     }
 
-    /* a thin, expensive “horizon” line */
-    .rule{
-      height:1px;
-      background: linear-gradient(90deg,
-        transparent,
-        rgba(255,255,255,.12),
-        rgba(33,212,230,.30),
-        rgba(255,255,255,.12),
-        transparent);
-      margin-top: 22px;
-      opacity:.9;
-    }
-
-    .toprow{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      margin-bottom: 10px;
-    }
-
-    .mark{
-      width:12px; height:12px;
-      border-radius:999px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.95), rgba(33,212,230,.85));
-      box-shadow: 0 0 0 1px rgba(255,255,255,.18), 0 0 30px rgba(33,212,230,.25);
-      flex:0 0 auto;
-    }
-
-    .soon{
-      letter-spacing:.34em;
-      text-transform:uppercase;
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 650;
-    }
-
-    .brand{
-      margin:0;
-      text-transform: uppercase;
-      letter-spacing:.12em;
-      font-weight: 760;
-      font-size: clamp(26px, 4.3vw, 56px);
-      line-height: 1.05;
-    }
-
-    /* subtle depth band at the bottom */
+    /* bottom depth band */
     .band{
       position:absolute;
-      left:-10%;
-      right:-10%;
-      bottom:-60px;
-      height:180px;
+      left:-10%; right:-10%;
+      bottom:-70px;
+      height: 260px;
       background:
-        radial-gradient(closest-side at 20% 40%, rgba(120,233,255,.14), transparent 60%),
-        radial-gradient(closest-side at 70% 50%, rgba(33,212,230,.12), transparent 58%),
-        linear-gradient(180deg, rgba(255,255,255,.00), rgba(255,255,255,.06));
+        radial-gradient(closest-side at 22% 40%, rgba(191,247,255,.12), transparent 62%),
+        radial-gradient(closest-side at 70% 52%, rgba(34,212,230,.10), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.06));
       opacity:.65;
-      filter: blur(8px);
+      filter: blur(10px);
       z-index:-1;
       transform: translateZ(0);
     }
 
-    /* mobile: keep it tight + centered */
-    @media (max-width: 520px){
-      .soon{ letter-spacing:.28em; }
-      .rule{ margin-top:18px; }
+    /* content */
+    .eyebrow{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      font-family: "Inter Tight", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      text-transform: uppercase;
+      letter-spacing: .34em;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: clamp(12px, 1.25vw, 16px);
+      margin: 0 0 clamp(18px, 2.4vw, 26px) 0;
+    }
+
+    .pip{
+      width:10px; height:10px;
+      border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.95), rgba(34,212,230,.85));
+      box-shadow: 0 0 0 1px rgba(255,255,255,.18), 0 0 34px rgba(34,212,230,.22);
+      flex:0 0 auto;
+    }
+
+    .brand{
+      margin: 0;
+      font-family: "Instrument Serif", ui-serif, Georgia, "Times New Roman", Times, serif;
+      font-weight: 400;
+      letter-spacing: .02em;
+      line-height: .92;
+      font-size: clamp(56px, 9.2vw, 156px);
+      text-rendering: geometricPrecision;
+    }
+
+    .rule{
+      margin-top: clamp(20px, 2.7vw, 34px);
+      height:1px;
+      width: min(760px, 100%);
+      background: linear-gradient(90deg,
+        transparent,
+        rgba(255,255,255,.14),
+        rgba(34,212,230,.34),
+        rgba(255,255,255,.14),
+        transparent);
+      opacity:.95;
+    }
+
+    /* micro-fit for very small phones */
+    @media (max-width: 380px){
+      .panel{ min-height: 76svh; }
+      .eyebrow{ letter-spacing: .28em; }
+      .brand{ line-height: .96; }
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -185,13 +193,13 @@
 
 <body>
   <div class="current"></div>
-  <div class="noise"></div>
+  <div class="grain"></div>
 
   <main class="wrap">
-    <section class="card" aria-label="Venice Capital coming soon">
-      <div class="toprow">
-        <span class="mark" aria-hidden="true"></span>
-        <div class="soon">Coming Soon</div>
+    <section class="panel" aria-label="Venice Capital coming 2026">
+      <div class="eyebrow">
+        <span class="pip" aria-hidden="true"></span>
+        <span>Coming 2026</span>
       </div>
 
       <h1 class="brand">Venice Capital</h1>

@@ -7,206 +7,225 @@
   <title>Venice Capital — Coming 2026</title>
   <meta name="description" content="Venice Capital — Coming 2026." />
 
-  <!-- Unique, premium typography -->
+  <!-- Unique, premium font pairing -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --deep:#02070d;
-      --mid:#041a2b;
-      --sea:#063a52;
-      --foam:#bff7ff;
-      --aqua:#22d4e6;
-      --ink: rgba(235, 252, 255, .95);
-      --muted: rgba(235, 252, 255, .72);
-
-      --glass: rgba(255,255,255,.06);
-      --glass2: rgba(255,255,255,.03);
-      --line: rgba(255,255,255,.14);
-      --shadow: 0 40px 140px rgba(0,0,0,.55);
-
-      --radius: 28px;
+      --bg0:#01070c;
+      --bg1:#041a2a;
+      --bg2:#06384d;
+      --glow:#33e5ff;
+      --ink: rgba(235,252,255,.96);
+      --muted: rgba(235,252,255,.70);
     }
 
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      background:
-        radial-gradient(1200px 900px at 18% 18%, rgba(34,212,230,.26), transparent 56%),
-        radial-gradient(900px 700px at 76% 25%, rgba(191,247,255,.12), transparent 58%),
-        radial-gradient(1200px 900px at 60% 95%, rgba(6,58,82,.70), transparent 62%),
-        linear-gradient(180deg, var(--deep), var(--mid) 28%, var(--sea) 62%, var(--mid));
+      background: radial-gradient(1200px 900px at 20% 20%, rgba(51,229,255,.18), transparent 56%),
+                  radial-gradient(900px 700px at 75% 25%, rgba(170,245,255,.10), transparent 58%),
+                  linear-gradient(180deg, var(--bg0), var(--bg1) 35%, var(--bg2));
       color:var(--ink);
       overflow:hidden;
+      font-family: "Inter Tight", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
     }
 
-    /* moving “current” (luxury, not gimmick) */
-    .current{
-      position:fixed; inset:-35%;
+    /* Full-screen fluid background (SVG filter-driven “water”) */
+    .ocean{
+      position:fixed; inset:-2px;
+      pointer-events:none;
+      opacity:.95;
+      transform: translateZ(0);
+    }
+
+    /* Vignette + contrast shaping (keeps it premium, not flat) */
+    .vignette{
+      position:fixed; inset:0;
       pointer-events:none;
       background:
-        conic-gradient(from 220deg at 45% 45%,
-          rgba(34,212,230,0) 0%,
-          rgba(34,212,230,.14) 18%,
-          rgba(191,247,255,.10) 34%,
-          rgba(34,212,230,0) 52%,
-          rgba(6,58,82,.22) 74%,
-          rgba(34,212,230,0) 100%);
+        radial-gradient(1200px 900px at 50% 35%, rgba(0,0,0,.10), rgba(0,0,0,.55) 70%),
+        radial-gradient(900px 700px at 50% 110%, rgba(0,0,0,.10), rgba(0,0,0,.65) 75%);
+      mix-blend-mode: multiply;
+    }
+
+    /* Ultra-subtle grain so gradients don’t look like cheap PNGs */
+    .grain{
+      position:fixed; inset:-35%;
+      pointer-events:none;
+      opacity:.075;
+      mix-blend-mode: overlay;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      transform: translateZ(0);
+    }
+
+    main{
+      min-height:100svh;
+      display:grid;
+      place-items:center;
+      padding:
+        calc(26px + env(safe-area-inset-top))
+        calc(22px + env(safe-area-inset-right))
+        calc(26px + env(safe-area-inset-bottom))
+        calc(22px + env(safe-area-inset-left));
+      position:relative;
+      z-index:2;
+      text-align:center;
+    }
+
+    .stack{
+      display:grid;
+      gap: clamp(14px, 2.0vw, 20px);
+      align-items:center;
+      justify-items:center;
+      width:min(1100px, 92vw);
+    }
+
+    .kicker{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      text-transform:uppercase;
+      letter-spacing:.36em;
+      font-weight:600;
+      color:var(--muted);
+      font-size: clamp(12px, 1.5vw, 16px);
+      user-select:none;
+    }
+    .dot{
+      width:9px; height:9px;
+      border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.95), rgba(51,229,255,.85));
+      box-shadow: 0 0 0 1px rgba(255,255,255,.16), 0 0 28px rgba(51,229,255,.25);
+    }
+
+    h1{
+      margin:0;
+      font-family: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+      font-variation-settings: "opsz" 96, "wght" 520;
+      letter-spacing: .01em;
+      line-height: .92;
+      font-size: clamp(54px, 10.5vw, 170px);
+      text-rendering: geometricPrecision;
+
+      /* “Ive-y” light + depth, not gamer neon */
+      background: linear-gradient(180deg,
+        rgba(255,255,255,.98),
+        rgba(225,251,255,.90) 38%,
+        rgba(170,245,255,.78) 70%,
+        rgba(255,255,255,.92));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      -webkit-text-fill-color:transparent;
+
+      filter: drop-shadow(0 16px 45px rgba(0,0,0,.55));
+    }
+
+    .rule{
+      width: min(760px, 86vw);
+      height:1px;
+      background: linear-gradient(90deg,
+        transparent,
+        rgba(255,255,255,.12),
+        rgba(51,229,255,.30),
+        rgba(255,255,255,.12),
+        transparent);
+      opacity:.95;
+      margin-top: clamp(10px, 1.8vw, 18px);
+    }
+
+    /* tiny motion, tasteful */
+    .sheen{
+      position:fixed; inset:-30%;
+      pointer-events:none;
+      background: conic-gradient(from 210deg at 45% 45%,
+        rgba(51,229,255,0) 0%,
+        rgba(51,229,255,.10) 18%,
+        rgba(190,252,255,.08) 34%,
+        rgba(51,229,255,0) 55%,
+        rgba(6,56,77,.20) 76%,
+        rgba(51,229,255,0) 100%);
       filter: blur(70px) saturate(120%);
       opacity:.55;
       mix-blend-mode: screen;
       animation: drift 18s ease-in-out infinite alternate;
       transform: translateZ(0);
+      z-index:1;
     }
     @keyframes drift{
       0%  { transform: translate3d(-2.2%, -1.4%, 0) rotate(-6deg) scale(1.02); }
       100%{ transform: translate3d( 2.2%,  1.4%, 0) rotate( 6deg) scale(1.07); }
     }
 
-    /* fine grain */
-    .grain{
-      position:fixed; inset:-40%;
-      pointer-events:none;
-      opacity:.08;
-      mix-blend-mode: overlay;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
-      transform: translateZ(0);
-    }
-
-    .wrap{
-      min-height: 100svh;
-      display:grid;
-      place-items:center;
-      padding:
-        calc(28px + env(safe-area-inset-top))
-        calc(22px + env(safe-area-inset-right))
-        calc(28px + env(safe-area-inset-bottom))
-        calc(22px + env(safe-area-inset-left));
-    }
-
-    /* Full-screen hero card that feels “institutional” */
-    .panel{
-      width:min(1200px, 94vw);
-      min-height: min(720px, 78svh);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, var(--glass), var(--glass2));
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      position:relative;
-      overflow:hidden;
-      display:grid;
-      align-content:center;
-      padding: clamp(28px, 5vw, 72px);
-      isolation:isolate;
-    }
-
-    /* crisp “architectural” edge highlight */
-    .panel::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background:
-        radial-gradient(900px 320px at 18% 0%, rgba(191,247,255,.14), transparent 58%),
-        radial-gradient(760px 320px at 84% 10%, rgba(34,212,230,.10), transparent 60%),
-        linear-gradient(90deg, transparent, rgba(255,255,255,.05), transparent);
-      opacity:.95;
-      z-index:-1;
-    }
-
-    /* bottom depth band */
-    .band{
-      position:absolute;
-      left:-10%; right:-10%;
-      bottom:-70px;
-      height: 260px;
-      background:
-        radial-gradient(closest-side at 22% 40%, rgba(191,247,255,.12), transparent 62%),
-        radial-gradient(closest-side at 70% 52%, rgba(34,212,230,.10), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.06));
-      opacity:.65;
-      filter: blur(10px);
-      z-index:-1;
-      transform: translateZ(0);
-    }
-
-    /* content */
-    .eyebrow{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      font-family: "Inter Tight", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      text-transform: uppercase;
-      letter-spacing: .34em;
-      color: var(--muted);
-      font-weight: 600;
-      font-size: clamp(12px, 1.25vw, 16px);
-      margin: 0 0 clamp(18px, 2.4vw, 26px) 0;
-    }
-
-    .pip{
-      width:10px; height:10px;
-      border-radius:999px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.95), rgba(34,212,230,.85));
-      box-shadow: 0 0 0 1px rgba(255,255,255,.18), 0 0 34px rgba(34,212,230,.22);
-      flex:0 0 auto;
-    }
-
-    .brand{
-      margin: 0;
-      font-family: "Instrument Serif", ui-serif, Georgia, "Times New Roman", Times, serif;
-      font-weight: 400;
-      letter-spacing: .02em;
-      line-height: .92;
-      font-size: clamp(56px, 9.2vw, 156px);
-      text-rendering: geometricPrecision;
-    }
-
-    .rule{
-      margin-top: clamp(20px, 2.7vw, 34px);
-      height:1px;
-      width: min(760px, 100%);
-      background: linear-gradient(90deg,
-        transparent,
-        rgba(255,255,255,.14),
-        rgba(34,212,230,.34),
-        rgba(255,255,255,.14),
-        transparent);
-      opacity:.95;
-    }
-
-    /* micro-fit for very small phones */
-    @media (max-width: 380px){
-      .panel{ min-height: 76svh; }
-      .eyebrow{ letter-spacing: .28em; }
-      .brand{ line-height: .96; }
-    }
-
     @media (prefers-reduced-motion: reduce){
-      .current{ animation:none; }
+      .sheen{animation:none}
+      .ocean animate, .ocean animateTransform { display:none; }
+    }
+
+    /* Make sure short screens still feel centered */
+    @media (max-height: 700px){
+      h1{ font-size: clamp(46px, 10vw, 140px); }
+      .stack{ gap: 14px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="current"></div>
+  <!-- Fluid ocean field -->
+  <svg class="ocean" viewBox="0 0 1200 800" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="sea" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0"   stop-color="#02101b"/>
+        <stop offset=".35" stop-color="#063045"/>
+        <stop offset=".7"  stop-color="#075a73"/>
+        <stop offset="1"   stop-color="#02101b"/>
+      </linearGradient>
+
+      <filter id="water">
+        <feTurbulence id="turb" type="fractalNoise" baseFrequency="0.010 0.020" numOctaves="3" seed="2" result="noise">
+          <animate attributeName="baseFrequency" dur="14s" values="0.010 0.020;0.014 0.024;0.010 0.020" repeatCount="indefinite"/>
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="42" xChannelSelector="R" yChannelSelector="G"/>
+        <feColorMatrix type="matrix" values="
+          1 0 0 0 0
+          0 1 0 0 0
+          0 0 1 0 0
+          0 0 0 1 0" />
+      </filter>
+
+      <radialGradient id="light" cx="35%" cy="28%" r="70%">
+        <stop offset="0" stop-color="rgba(51,229,255,.28)"/>
+        <stop offset=".55" stop-color="rgba(51,229,255,.06)"/>
+        <stop offset="1" stop-color="rgba(0,0,0,0)"/>
+      </radialGradient>
+    </defs>
+
+    <rect width="1200" height="800" fill="url(#sea)" filter="url(#water)"/>
+    <rect width="1200" height="800" fill="url(#light)" opacity=".95"/>
+
+    <!-- Low, slow wave-lines (subtle) -->
+    <g opacity=".18" fill="none" stroke="rgba(190,252,255,.55)" stroke-width="1">
+      <path d="M-40 560 C 180 520, 260 600, 520 560 C 820 510, 900 620, 1240 560" />
+      <path d="M-40 620 C 160 590, 300 660, 560 620 C 840 575, 940 690, 1240 620" />
+      <path d="M-40 680 C 200 650, 320 720, 600 680 C 860 640, 980 750, 1240 680" />
+      <animateTransform attributeName="transform" type="translate" dur="10s" values="0 0; 18 -6; 0 0" repeatCount="indefinite"/>
+    </g>
+  </svg>
+
+  <div class="sheen"></div>
+  <div class="vignette"></div>
   <div class="grain"></div>
 
-  <main class="wrap">
-    <section class="panel" aria-label="Venice Capital coming 2026">
-      <div class="eyebrow">
-        <span class="pip" aria-hidden="true"></span>
-        <span>Coming 2026</span>
-      </div>
-
-      <h1 class="brand">Venice Capital</h1>
-
+  <main>
+    <div class="stack" aria-label="Venice Capital coming 2026">
+      <div class="kicker"><span class="dot" aria-hidden="true"></span><span>Coming 2026</span></div>
+      <h1>Venice Capital</h1>
       <div class="rule" aria-hidden="true"></div>
-      <div class="band" aria-hidden="true"></div>
-    </section>
+    </div>
   </main>
 </body>
 </html>
